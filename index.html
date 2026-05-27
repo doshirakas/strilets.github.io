@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Історичні місця Чернігівської області</title>
+  <meta name="description" content="Інформаційний сайт про історичні місця Чернігівської області з маршрутами, галереєю та інтерактивною мапою.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/redesign.css">
+</head>
+<body>
+  <div class="pattern"></div>
+  <span class="decor-orb orb-a"></span>
+  <span class="decor-orb orb-b"></span>
+  <span class="decor-orb orb-c"></span>
+  <span class="decor-orb orb-d"></span>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand-link" href="index.html">
+        <img src="images/logo.svg" alt="Логотип сайту" id="brandLogo">
+        <div class="brand-copy">
+          <div class="brand-title" id="brandTitle">Історичні місця</div>
+          <div class="brand-subtitle" id="brandSubtitle">Чернігівської області</div>
+        </div>
+      </a>
+      <nav class="nav" aria-label="Основна навігація">
+        <a href="#about" class="active" id="navAbout">Про сайт</a>
+        <a href="locations.html" id="navLocations">Локації</a>
+        <a href="#routes" id="navRoutes">Рекомендовані маршрути</a>
+        <a href="#map" id="navMap">Мапа</a>
+        <a href="#gallery" id="navGallery">Галерея</a>
+      </nav>
+      <div class="top-actions">
+        <div class="lang-switch" aria-label="Мова">
+          <button class="lang-btn active" data-lang="uk" type="button">UA</button>
+          <button class="lang-btn" data-lang="en" type="button">EN</button>
+        </div>
+        <div class="theme-switch" aria-label="Тема">
+          <button class="theme-btn active" data-theme="light" type="button" id="themeLight">Світла</button>
+          <button class="theme-btn" data-theme="dark" type="button" id="themeDark">Темна</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero reveal">
+      <div class="hero-inner">
+        <span class="eyebrow" id="heroEyebrow">Головна сторінка проєкту</span>
+        <h1 id="heroTitle">Історичні місця Чернігівської області</h1>
+        <p id="heroText">Дипломний інформаційний вебресурс, присвячений історико-культурній спадщині Чернігівщини. На сайті зібрано ключові історичні об’єкти області, рекомендовані маршрути, галерею та інтерактивну мапу для зручної навігації.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="locations.html" id="heroBtnLocations">Перейти до локацій</a>
+          <a class="btn btn-secondary" href="#map" id="heroBtnMap">Відкрити мапу</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="about">
+      <div class="section-head">
+        <div>
+          <span class="kicker" id="aboutKicker">Про сайт</span>
+          <h2 id="aboutTitle">Головна сторінка проєкту</h2>
+        </div>
+        <p id="aboutText">Сайт створено як сучасний інформаційний ресурс для ознайомлення з історичними місцями Чернігівської області. Головна сторінка містить загальний опис проєкту, райони та історичні напрями, добірку галереї, рекомендовані маршрути та інтерактивну мапу всіх об’єктів.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="card reveal"><h3>Інформаційна цінність</h3><p>Проєкт об’єднує історичні пам’ятки, короткі довідки, напрями подорожей та надає структурований доступ до контенту.</p></article>
+        <article class="card reveal"><h3>Навігація та зручність</h3><p>Окрема сторінка «Локації» дозволяє шукати й фільтрувати об’єкти, а мапа допомагає одразу побачити їхнє розташування.</p></article>
+        <article class="card reveal"><h3>Візуальна подача</h3><p>Дизайн побудовано на великих блоках, нейтральному фоні, акцентних картках і плавній анімації, що робить сайт більш завершеним.</p></article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="districts">
+      <div class="section-head">
+        <div>
+          <span class="kicker" id="districtsKicker">Райони Чернігівщини</span>
+          <h2 id="districtsTitle">Райони та історичні напрями</h2>
+        </div>
+        <p id="districtsText">Кожен район Чернігівської області представлено як окремий історичний напрям: від княжої та монастирської спадщини Чернігова до гетьманських резиденцій Батурина та археологічних пам’яток Сіверщини.</p>
+      </div>
+      <div class="district-grid" id="districtCards"></div>
+    </section>
+
+    <section class="section reveal" id="gallery">
+      <div class="section-head">
+        <div>
+          <span class="kicker" id="galleryKicker">Галерея</span>
+          <h2 id="galleryTitle">Візуальна добірка локацій</h2>
+        </div>
+        <p id="galleryText">Галерея знайомить з найупізнаванішими об’єктами області: соборами, палацами, монастирями, історичними містами та природно-парковими ансамблями.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <section class="section reveal" id="routes">
+      <div class="section-head">
+        <div>
+          <span class="kicker" id="routesKicker">Маршрути</span>
+          <h2 id="routesTitle">Рекомендовані маршрути Чернігівщиною</h2>
+        </div>
+        <p id="routesText">Добірка маршрутів допомагає об’єднати пам’ятки в логічні подорожі: одноденні екскурсії, тематичні тури гетьманськими місцями та знайомство з археологічною спадщиною регіону.</p>
+      </div>
+      <div class="route-grid" id="routeCards"></div>
+    </section>
+
+    <section class="section reveal" id="map">
+      <div class="section-head">
+        <div>
+          <span class="kicker" id="mapKicker">Інтерактивна мапа</span>
+          <h2 id="mapTitle">Мапа всіх історичних об’єктів</h2>
+        </div>
+        <p id="mapText">На мапі відображено всі основні локації сайту. Натискання на мітку відкриває коротку підказку та посилання на сторінку з локаціями.</p>
+      </div>
+      <div class="home-map" id="homeMap"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/redesign.js"></script>
+</body>
+</html>

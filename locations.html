@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Локації — Історичні місця Чернігівської області</title>
+  <meta name="description" content="Пошук, фільтри та інтерактивна мапа історичних об’єктів Чернігівської області.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/redesign.css">
+  <link rel="stylesheet" href="css/locations.css">
+</head>
+<body class="locations-page-fixed">
+  <div class="pattern"></div>
+  <span class="decor-orb orb-a"></span>
+  <span class="decor-orb orb-b"></span>
+  <span class="decor-orb orb-c"></span>
+  <span class="decor-orb orb-d"></span>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand-link" href="index.html">
+        <img src="images/logo.svg" alt="Логотип сайту">
+        <div class="brand-copy">
+          <div class="brand-title" data-i18n="brandTitle">Історичні місця</div>
+          <div class="brand-subtitle" data-i18n="brandSubtitle">Чернігівської області</div>
+        </div>
+      </a>
+      <nav class="nav" aria-label="Основна навігація">
+        <a href="index.html#about" data-i18n="navAbout">Про сайт</a>
+        <a href="locations.html" class="active" data-i18n="navLocations">Локації</a>
+        <a href="index.html#routes" data-i18n="navRoutes">Рекомендовані маршрути</a>
+        <a href="index.html#map" data-i18n="navMap">Мапа</a>
+        <a href="index.html#gallery" data-i18n="navGallery">Галерея</a>
+      </nav>
+      <div class="top-actions">
+        <div class="lang-switch" aria-label="Мова">
+          <button class="lang-btn active" data-lang="uk" type="button">UA</button>
+          <button class="lang-btn" data-lang="en" type="button">EN</button>
+        </div>
+        <div class="theme-switch" aria-label="Тема">
+          <button class="theme-btn active" data-theme="light" type="button" data-i18n="themeLight">Світла</button>
+          <button class="theme-btn" data-theme="dark" type="button" data-i18n="themeDark">Темна</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="locations-shell">
+    <section class="locations-grid-fixed">
+      <aside class="locations-column">
+        <div class="locations-panel-fixed">
+          <h1 class="locations-heading" data-i18n="title">Локації</h1>
+          <p class="locations-subtitle" data-i18n="subtitle">Сторінка локацій об'єднує пошук, фільтри та інтерактивну мапу. Оберіть район або тип об'єкта й перегляньте всі відповідні місця на карті.</p>
+
+          <div class="filters-fixed">
+            <input id="locationSearch" type="search" class="search-field" data-i18n-placeholder="searchPlaceholder" placeholder="Пошук за назвою, районом або історичним напрямом">
+            <select class="filter-select" id="districtFilter">
+              <option value="all" data-i18n="allDistricts">Вся область</option>
+              <option value="Чернігівський район">Чернігівський район</option>
+              <option value="Новгород-Сіверський район">Новгород-Сіверський район</option>
+              <option value="Прилуцький район">Прилуцький район</option>
+              <option value="Ніжинський район">Ніжинський район</option>
+              <option value="Корюківський район">Корюківський район</option>
+            </select>
+            <select class="filter-select" id="typeFilter">
+              <option value="all" data-i18n="allTypes">Категорія</option>
+              <option value="cathedral">Собор</option>
+              <option value="monastery">Монастир</option>
+              <option value="church">Церква</option>
+              <option value="palace">Палац</option>
+              <option value="estate">Садиба</option>
+              <option value="museum">Музей</option>
+              <option value="archaeology">Археологічна пам'ятка</option>
+              <option value="park">Парк / заповідник</option>
+              <option value="town">Історичне місто</option>
+            </select>
+            <button type="button" class="btn btn-primary locations-reset" id="resetFilters" data-i18n="reset">Скинути фільтри</button>
+          </div>
+
+          <div class="results-count" id="resultsCount">Знайдено 20 місць</div>
+
+                    <div class="locations-list-fixed" id="locationsList"></div>
+        </div>
+      </aside>
+
+      <section class="map-column">
+        <div class="map-card-fixed">
+          <div id="locationsMap" class="locations-map-fixed"></div>
+          <div class="map-place-overlay-fixed" id="mapPlaceOverlay" aria-live="polite">
+            <button class="map-overlay-close" id="overlayClose" type="button" aria-label="Закрити">×</button>
+            <div class="map-overlay-image-wrap">
+              <img id="overlayImage" class="map-overlay-image" src="" alt="">
+            </div>
+            <div class="map-overlay-body">
+              <div class="map-overlay-district" id="overlayDistrict"></div>
+              <h2 class="map-overlay-title" id="overlayTitle"></h2>
+              <div class="map-overlay-meta" id="overlayMeta"></div>
+              <div class="map-overlay-actions">
+                <a id="overlayRoute" href="#" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="route">Маршрут</a>
+              </div>
+              <div class="map-overlay-info-grid">
+                <div class="map-info-item">
+                  <span class="map-info-label" data-i18n="address">Адреса</span>
+                  <span id="overlayAddress"></span>
+                </div>
+                <div class="map-info-item">
+                  <span class="map-info-label" data-i18n="category">Категорія</span>
+                  <span id="overlayCategory"></span>
+                </div>
+                <div class="map-info-item">
+                  <span class="map-info-label" data-i18n="period">Період</span>
+                  <span id="overlayPeriod"></span>
+                </div>
+                <div class="map-info-item">
+                  <span class="map-info-label" data-i18n="district">Район</span>
+                  <span id="overlayDistrictText"></span>
+                </div>
+              </div>
+              <div class="map-overlay-description">
+                <h3 data-i18n="aboutPlace">Про місце</h3>
+                <p id="overlayDesc"></p>
+              </div>
+            </div>
+          </div>
+          <div id="mapFallback" class="map-fallback" hidden>
+            <h3 data-i18n="mapUnavailable">Мапа тимчасово недоступна</h3>
+            <p data-i18n="mapUnavailableText">Не вдалося завантажити бібліотеку карти. Перевірте підключення до інтернету або відкрийте сайт з хостингу.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/locations.js"></script>
+</body>
+</html>
